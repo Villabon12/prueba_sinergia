@@ -7,12 +7,29 @@ use App\Models\Product;
 use App\Models\Customer;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+/**
+ * @OA\Info(
+ *     title="Logística API",
+ *     version="1.0.0",
+ *     description="API para la gestión logística terrestre y marítima"
+ * )
+ */
 class TerrestrialShipmentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/terrestrial-shipments",
+     *     summary="Obtiene todos los envíos terrestres",
+     *     tags={"Terrestrial Shipments"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Envíos terrestres encontrados",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/TerrestrialShipment")
+     *         )
+     *     )
+     * )
      */
 
     // Mostrar todos los envíos terrestres
@@ -24,10 +41,24 @@ class TerrestrialShipmentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *     path="/api/terrestrial-shipments",
+     *     summary="Crea un nuevo envío terrestre",
+     *     tags={"Terrestrial Shipments"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/TerrestrialShipment")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Envío terrestre creado correctamente",
+     *         @OA\JsonContent(ref="#/components/schemas/TerrestrialShipment")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error en la validación de datos"
+     *     )
+     * )
      */
     public function store(Request $request)
     {

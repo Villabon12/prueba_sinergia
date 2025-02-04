@@ -5,13 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Warehouse;
 use App\Models\WarehouseType;
 use Illuminate\Http\Request;
-
+/**
+ * @OA\Info(
+ *     title="Logística API",
+ *     version="1.0.0",
+ *     description="API para la gestión logística terrestre y marítima"
+ * )
+ */
 class WarehouseController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/warehouses",
+     *     summary="Obtiene todos los almacenes",
+     *     tags={"Warehouses"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Almacenes encontrados",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Warehouse")
+     *         )
+     *     )
+     * )
      */
     public function index()
     {
@@ -20,10 +36,24 @@ class WarehouseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *     path="/api/warehouses",
+     *     summary="Crea un nuevo almacén",
+     *     tags={"Warehouses"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Warehouse")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Almacén creado correctamente",
+     *         @OA\JsonContent(ref="#/components/schemas/Warehouse")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error en la validación de datos"
+     *     )
+     * )
      */
     public function store(Request $request)
     {

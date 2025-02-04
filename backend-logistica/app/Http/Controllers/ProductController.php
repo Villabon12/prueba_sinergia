@@ -9,9 +9,19 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/products",
+     *     summary="Obtiene todos los productos",
+     *     tags={"Products"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Productos encontrados",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Product")
+     *         )
+     *     )
+     * )
      */
     public function index()
     {
@@ -20,10 +30,24 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *     path="/api/products",
+     *     summary="Crea un nuevo producto",
+     *     tags={"Products"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Producto creado correctamente",
+     *         @OA\JsonContent(ref="#/components/schemas/Product")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error en la validación de datos"
+     *     )
+     * )
      */
     public function store(Request $request)
     {

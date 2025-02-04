@@ -4,13 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomerType;
 use Illuminate\Http\Request;
-
+/**
+ * @OA\Info(title="API de Logística", version="1.0")
+ * 
+ * Controlador para manejar los tipos de clientes.
+ * 
+ * @OA\Tag(name="CustomerTypes", description="Gestión de los tipos de cliente")
+ */
 class CustomerTypeController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/customer-types",
+     *     summary="Obtiene todos los tipos de clientes",
+     *     tags={"CustomerTypes"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Listado de tipos de cliente",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/CustomerType"))
+     *     )
+     * )
      */
     public function index()
     {
@@ -19,10 +32,24 @@ class CustomerTypeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *     path="/api/customer-types",
+     *     summary="Crea un nuevo tipo de cliente",
+     *     tags={"CustomerTypes"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerType")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Tipo de cliente creado correctamente",
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerType")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error en la validación de datos"
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -36,10 +63,27 @@ class CustomerTypeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/customer-types/{id}",
+     *     summary="Obtiene un tipo de cliente específico",
+     *     tags={"CustomerTypes"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID del tipo de cliente",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Tipo de cliente encontrado",
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerType")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Tipo de cliente no encontrado"
+     *     )
+     * )
      */
     public function show($id)
     {
@@ -48,11 +92,31 @@ class CustomerTypeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *     path="/api/customer-types/{id}",
+     *     summary="Actualiza un tipo de cliente",
+     *     tags={"CustomerTypes"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID del tipo de cliente",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerType")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Tipo de cliente actualizado correctamente",
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerType")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Tipo de cliente no encontrado"
+     *     )
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -67,10 +131,26 @@ class CustomerTypeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *     path="/api/customer-types/{id}",
+     *     summary="Elimina un tipo de cliente",
+     *     tags={"CustomerTypes"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID del tipo de cliente",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Tipo de cliente eliminado correctamente"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Tipo de cliente no encontrado"
+     *     )
+     * )
      */
     public function destroy($id)
     {

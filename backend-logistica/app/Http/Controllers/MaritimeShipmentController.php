@@ -7,25 +7,54 @@ use App\Models\Product;
 use App\Models\Customer;
 use App\Models\Port;
 use Illuminate\Http\Request;
-
+/**
+ * @OA\Info(
+ *     title="Logística API",
+ *     version="1.0.0",
+ *     description="API para la gestión logística terrestre y marítima"
+ * )
+ */
 class MaritimeShipmentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/maritime-shipments",
+     *     summary="Obtiene todos los envíos marítimos",
+     *     tags={"Maritime Shipments"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Envíos marítimos encontrados",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/MaritimeShipment")
+     *         )
+     *     )
+     * )
      */
     public function index()
     {
         $shipments = MaritimeShipment::with('product', 'customer', 'port')->get();
         return response()->json($shipments);
     }
-
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *     path="/api/maritime-shipments",
+     *     summary="Crea un nuevo envío marítimo",
+     *     tags={"Maritime Shipments"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/MaritimeShipment")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Envío marítimo creado correctamente",
+     *         @OA\JsonContent(ref="#/components/schemas/MaritimeShipment")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error en la validación de datos"
+     *     )
+     * )
      */
     public function store(Request $request)
     {
