@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -13,7 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::with('customerType')->get(); // Obtener todos los clientes con su tipo
+        return response()->json($customers);
     }
 
     /**
@@ -24,7 +26,17 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:55',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:100',
+            'email' => 'required|email|unique:customers,email',
+            'customer_type_id' => 'required|exists:customer_types,id',
+        ]);
+
+        // Crear el cliente
+        $customer = Customer::create($validated);
+        return response()->json(['message' => 'Cliente creado correctamente', 'data' => $customer], 201);
     }
 
     /**
@@ -35,7 +47,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::with('customerType')->findOrFail($id); // Obtener el cliente con su tipo
+        return response()->json($customer);
     }
 
     /**
@@ -47,7 +60,18 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:55',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:100',
+            'email' => 'required|email|unique:customers,email,' . $id,
+            'customer_type_id' => 'required|exists:customer_types,id',
+        ]);
+
+        $customer->update($validated);
+        return response()->json(['message' => 'Cliente actualizado correctamente', 'data' => $customer]);
     }
 
     /**
@@ -58,6 +82,8 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
+        return response()->json(['message' => 'Cliente eliminado correctamente']);
     }
 }

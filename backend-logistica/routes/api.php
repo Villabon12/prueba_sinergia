@@ -3,9 +3,13 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WarehouseController;
-use App\Http\Controllers\ShipmentController;
+use App\Http\Controllers\CustomerTypeController;
+use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\WarehouseTypeController;
 
-Route::apiResource('customers', CustomerController::class);
-Route::apiResource('products', ProductController::class);
-Route::apiResource('warehouses', WarehouseController::class);
-Route::apiResource('shipments', ShipmentController::class);
+Route::resource('customers', CustomerController::class);
+Route::resource('products', ProductController::class);
+Route::resource('warehouses', WarehouseController::class);
+Route::resource('customer-types', CustomerTypeController::class);
+Route::resource('product-types', ProductTypeController::class);
+Route::resource('warehouse-types', WarehouseTypeController::class);
