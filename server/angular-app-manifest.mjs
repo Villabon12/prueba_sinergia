@@ -7,14 +7,14 @@ export default {
   routes: [
   {
     "renderMode": 2,
-    "route": "/"
+    "route": "/prueba_sinergia"
   }
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 514, hash: '1dd33f60af74c5e0037532f120d03d5d44c28df64f4e5215a16f2719d0150e27', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 1027, hash: '8bdb68a17943444a2b34212d1a0a429aefd9fc5e9587eb61fa1af27effe79242', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'index.html': {size: 20851, hash: 'b5ed4f244717d0c781358993d9f256666741c1a9dd01bbae0445f5bebd21ba98', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 530, hash: 'dda18d3abdcb44542532de51cc6b3fd02e086c5e8bcf3997ff3a7ba2f369c0f6', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 1043, hash: 'd34368e2103f26585aa413efb804fd13e550fe59902b11ab319f436fb9c051d7', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'prueba_sinergia/index.html': {size: 20867, hash: '8a1e9a8f9554e9e25f1874d4e6a641a20e4c94337f3ff6b8ecaeace8c1c2a3b4', text: () => import('./assets-chunks/prueba_sinergia_index_html.mjs').then(m => m.default)},
     'styles-5INURTSO.css': {size: 0, hash: 'menYUTfbRu8', text: () => import('./assets-chunks/styles-5INURTSO_css.mjs').then(m => m.default)}
   },
 };
